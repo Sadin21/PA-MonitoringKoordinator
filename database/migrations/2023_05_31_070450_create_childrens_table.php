@@ -21,11 +21,16 @@ return new class extends Migration
             $table->string('grade');
             $table->string('class');
             $table->string('school');
+            $table->string('city_address');
             $table->string('address');
-            $table->string('semester');
             $table->string('status_with_parents');
             $table->string('photo')->nullable();
             $table->string('regis_status');
+            $table->string('file_raport');
+            $table->string('file_sktm');
+            $table->string('photo_sitting_room');
+            $table->string('photo_front_home');
+            $table->string('photo_kitchen');
             $table->foreignId('coordinator_id')->constrained('koordinators');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('parent_id')->constrained('children_parents');

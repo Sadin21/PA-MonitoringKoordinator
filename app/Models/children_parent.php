@@ -22,6 +22,9 @@ class children_parent extends Model
         'home_status',
         'number_of_souls',
         'category_of_souls',
+        'nik',
+        'file_ktp',
+        'file_kk'
     ];
 
     public function children()

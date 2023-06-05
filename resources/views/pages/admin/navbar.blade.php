@@ -3,20 +3,21 @@
         <div class="mx-auto max-w-7xl">
             <div class="flex items-center justify-between h-16">
                 <div class=" flex items-center md:w-full">
-                    <div class="hidden md:flex md:w-full md:justify-between ">
+                    <div class="hidden md:flex md:w-full md:justify-between md:items-center">
+                        <img src="{{ asset('images/logo.png' ) }}" alt="" class="h-12 w-12 rounded-md">
                         <div class="flex items-baseline ml-10 space-x-4">
-                            <a  class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
+                            <a href="{{ route('admin.index') }}" class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
                                 Koordinator
                             </a>
-                            <a  class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
-                                Pengajuan
-                            </a>
-                            <a  class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
+                            <a href="{{ route('admin.anak') }}" class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
                                 Anak Asuh
+                            </a>
+                            <a href="{{ route('admin.pengajuan') }}" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                Pengajuan
                             </a>
                         </div>
                         <div class="flex items-end">
-                            <a href="{{ route('logout') }}" type="button" class="py-2 w-24 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                            <a href="{{ route('logout') }}" type="button" class="py-2 w-24 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                 Logout
                               </a>
                         </div>
@@ -54,3 +55,6 @@
         </div>
     </nav>
   </div>
+  {{-- <section class="bg-white px-44 w-full py-5 shadow-md flex items-center gap-4">
+    <h1 class="font-semibold text-2xl">Dashboard Admin</h1>
+  </section> --}}

@@ -19,10 +19,16 @@ class Children extends Model
         'class',
         'school',
         'semester',
+        'city_address',
         'address',
         'status_with_parents',
         'photo',
         'regis_status',
+        'file_raport',
+        'file_sktm',
+        'photo_sitting_room',
+        'photo_front_home',
+        'photo_kitchen',
         'user_id',
         'coordinator_id',
         'parent_id',
@@ -43,8 +49,23 @@ class Children extends Model
         return $this->belongsTo(ChildrenParent::class);
     }
 
-    // public function donate_report()
-    // {
-    //     return $this->hasOne(donate_report::class);
-    // }
+    public function beasiswa()
+    {
+        return $this->hasMany(beasiswa_report::class);
+    }
+
+    public function activity_ppas()
+    {
+        return $this->hasMany(activity_ppas_report::class);
+    }
+
+    public function activity_reguler()
+    {
+        return $this->hasMany(activity_reguler_report::class);
+    }
+
+    public function academic()
+    {
+        return $this->hasMany(academic_report::class);
+    }
 }

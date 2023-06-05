@@ -1,18 +1,13 @@
 @extends('layout-koordinator')
 
-@section('title', 'About | Dashboard Koordinator')
+@section('title', 'Pengajuan | Dashboard Koordinator')
 @section('content')
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md">
     <h1 class="text-2xl font-semibold">Update Pengajuan Anak Asuh</h1>
-    <p>Perbarui akun dan data dirimu</p>
-    {{-- <div class="flex gap-4">
-        <a  href="{{ route('child.create-parent') }}" type="button" class="py-2 w-40 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
-            Create Wali
-        </a>
-        <a  href="{{ route('child.create-child') }}" type="button" class="py-2 w-40 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
-            Create Data Diri
-        </a>
-    </div> --}}
+    <p>Buat akun baru untuk pengajuan baru</p>
+    <a  href="{{ route('koordinator.register') }}" type="button" class="py-2 w-40 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
+        Registrasi Akun
+    </a>
 </section>
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">
     <table class="min-w-full leading-normal">
@@ -22,7 +17,10 @@
                     Nama
                 </th>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Nama Orang Tua
+                  Nama Orang Tua
+                </th>
+                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                  Tanggal Pengajuan
                 </th>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
                     Status
@@ -33,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-          @forelse ($dataChildren as $d)
+          @forelse ($data as $d)
             <tr>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                     <div class="flex items-center">
@@ -55,16 +53,35 @@
                   </p>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                  <span aria-hidden="true" class="absolute inset-0 {{ $d->regis_status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
-                  </span>
-                  <span class="relative">
-                      {{ $d->regis_status }}
-                  </span>
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->created_at->format('d M Y') }}
+                </p>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <span class="relative inline-block px-3 py-1 font-semibold ">
+                  @if ($d->regis_status == 'Pengajuan' || $d->regis_status == 'Diterima Koordinator') 
+                    <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                    </span>
+                    <span class="relative">
+                        {{ $d->regis_status }}
+                    </span>
+                  @elseif($d->regis_status == 'Diterima')
+                    <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                    </span>
+                    <span class="relative">
+                        {{ $d->regis_status }}
+                    </span>
+                  @elseif ($d->regis_status == 'Perlu Revisi')
+                    <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                    </span>
+                    <span class="relative">
+                        {{ $d->regis_status }}
+                    </span>
+                  @endif
                 </span>
               </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex gap-4">
-                  <a href="" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
+                  <a href="{{ route('koordinator.edit-pengajuan', $d->id) }}" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                     </svg>

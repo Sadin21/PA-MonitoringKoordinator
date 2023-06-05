@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('home_status');
             $table->string('number_of_souls');
             $table->string('category_of_souls');
+            $table->string('nik');
+            $table->string('file_ktp');
+            $table->string('file_kk');
             $table->timestamps();
         });
     }

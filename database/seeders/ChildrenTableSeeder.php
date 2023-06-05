@@ -27,7 +27,8 @@ class ChildrenTableSeeder extends Seeder
                 'status_with_parent' => 'Orang Tua',
                 'photo' => '1.jpg',
                 'regis_status' => 'Pengajuan',
-                'address' => 'Keputih, Surabaya',
+                'city_address' => 'Surabaya',
+                'address' => 'Keputih',
                 'coordinator_id' => 1,
                 'user_id' => 5,
                 'parent_id' => '1'
@@ -44,7 +45,8 @@ class ChildrenTableSeeder extends Seeder
                 'status_with_parent' => 'Orang Tua',
                 'photo' => '1.jpg',
                 'regis_status' => 'Pengajuan',
-                'address' => 'Keputih, Surabaya',
+                'regis_status' => 'Pengajuan',
+                'city_address' => 'Surabaya',
                 'coordinator_id' => 2,
                 'user_id' => 6,
                 'parent_id' => '2'

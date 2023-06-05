@@ -1,32 +1,65 @@
 <div>
-    <nav class="bg-white md:py-1 md:px-32 md:border-b-1>
+    <nav class="bg-white md:py-4 md:px-32 md:border-b-1>
         <div class="mx-auto max-w-7xl">
             <div class="flex items-center justify-between h-16">
                 <div class=" flex items-center md:w-full">
-                    <div class="hidden md:flex md:w-full md:justify-between ">
+                    <div class="hidden md:flex md:w-full md:justify-between md:items-center">
+                        <img src="{{ asset('images/logo.png' ) }}" alt="" class="h-12 w-12 rounded-md">
                         <div class="flex items-baseline ml-10 space-x-4">
                             <a href="{{ route('child.index') }}" class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
                                 Home
                             </a>
-                            <a  class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
-                                Laporan Donasi
+                            @if (Auth()->user()->children && Auth()->user()->children->regis_status == 'Diterima')
+                                <a href="{{ route('child.beasiswa') }}" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                    Laporan Beasiswa
+                                </a>
+                                <a href="{{ route('child.akademik') }}" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                    Laporan Akademik
+                                </a>
+                                @if (Auth()->user()->children->status_in_family == 'Penghafal al Quran')
+                                    <a href="{{ route('child.kegiatan-ppa') }}" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                        Laporan Kegiatan
+                                    </a>
+                                @else
+                                    <a href="{{ route('child.kegiatan') }}" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                        Laporan Kegiatan
+                                    </a>
+                                @endif             
+                            @endif
+                            {{-- <a href="" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                Laporan Beasiswa
                             </a>
-                            <a  class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
-                                Laporan Donasi
+                            <a href="" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                Laporan Akademik
                             </a>
-                            <a  class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
-                                Laporan Donasi
-                            </a>
-                            <a href="{{ route('child.about') }}" class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
-                                Profil
-                            </a>
+                            <a href="" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
+                                Laporan Kegiatan
+                            </a> --}}
                         </div>
-                        <div class="gap-4 flex items-center">
-                            <img src="{{ asset(Auth()->user()->children ? Auth()->user()->children->photo : 'images/images 1.png' ) }}" alt="" class="h-12 w-12 rounded-md">
-                            {{-- <h1 class="">{{ Auth()->user()->coordinator ? Auth()->user()->coordinator->name : "kosong"   }}</h1> --}}
-                            <a href="{{ route('logout') }}" type="button" class="py-2 w-24 bg-green-600 hover:bg-green-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                Logout
-                            </a>
+                        <div class="relative inline-block text-left">
+                            <div>
+                                <button type="button" id="about" class="  flex items-center justify-center w-full rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" id="options-menu">
+                                    <img src="{{ asset(Auth()->user()->children ? Auth()->user()->children->photo : 'images/images 1.png' ) }}" alt="" class="h-12 w-12 rounded-md">
+                                </button>
+                            </div>
+                            <div id="about-menu" class="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5" style="display: none">
+                                <div class="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                    <a href="{{ route('child.about') }}" type="button" class="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                        <span class="flex flex-col">
+                                            <span>
+                                                Profil
+                                            </span>
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('logout') }}" class="block px-4 py-2 text-md text-gray-700 hover:bg-[#006934] hover:text-white" role="menuitem">
+                                        <span class="flex flex-col">
+                                            <span>
+                                                Logout
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

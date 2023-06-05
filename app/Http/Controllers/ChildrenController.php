@@ -21,13 +21,29 @@ class ChildrenController extends Controller
     public function about()
     {
         $dataParent = children_parent::get();
-        $me = User::join('children', 'users.id', '=', 'children.user_id')
+        $data = User::join('children', 'users.id', '=', 'children.user_id')
             ->join('children_parents', 'children_parents.id', '=', 'children.parent_id')
             ->where('children.user_id', auth()->user()->id)
             ->get(['children.*', 'children_parents.name as parent_name']);
         return view('pages.anak.about', [
             'dataParent' => $dataParent,
-            'me' => $me
+            'data' => $data
+        ]);
+    }
+
+    public function showParent()
+    {
+        $data = children_parent::get();
+        return view('pages.anak.show-parent', [
+            'data' => $data
+        ]);
+    }
+
+    public function detailParent($id)
+    {
+        $data = children_parent::where('children_parents.id', $id)->get();
+        return view('pages.anak.detail-parent', [
+            'data' => $data
         ]);
     }
 
@@ -51,7 +67,18 @@ class ChildrenController extends Controller
             'home_status' => 'required',
             'number_of_souls' => 'required',
             'category_of_souls' => 'required',
+            'nik' => 'required',
+            'file_ktp' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'file_kk' => 'required|image|max:2048|mimes:jpg,jpeg,png'
         ]);
+
+        $file_ktp = $request->file('file_ktp');
+        $filename = 'images/berkas_parent/' . $file_ktp->getClientOriginalName();
+        $file_ktp->move(public_path('images/berkas_parent/'), $filename);
+
+        $file_kk = $request->file('file_kk');
+        $filename2 = 'images/berkas_parent/' . $file_kk->getClientOriginalName();
+        $file_kk->move(public_path('images/berkas_parent/'), $filename2);
         
         $data = children_parent::create([
             'name' => $request->name,
@@ -66,12 +93,15 @@ class ChildrenController extends Controller
             'home_status' => $request->home_status,
             'number_of_souls' => $request->number_of_souls,
             'category_of_souls' => $request->category_of_souls,
+            'nik' => $request->nik,
+            'file_ktp' => $filename,
+            'file_kk' => $filename2
         ]);
 
         // dd($data);
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.index')->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route('child.about')->with('success', 'Data berhasil ditambahkan');
         } else {
             return redirect()->route('child.store-parent')->with('error', 'Data gagal ditambahkan');
         }
@@ -88,6 +118,7 @@ class ChildrenController extends Controller
 
     public function updateParentData(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'birth_place' => 'required',
@@ -101,25 +132,60 @@ class ChildrenController extends Controller
             'home_status' => 'required',
             'number_of_souls' => 'required',
             'category_of_souls' => 'required',
+            'nik' => 'required',
+            'file_ktp' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'file_kk' => 'required|image|max:2048|mimes:jpg,jpeg,png'
         ]);
         $data = children_parent::findOrFail($id);
         
-        $data->update([
-            'name' => $request->name,
-            'birth_place' => $request->birth_place,
-            'birth_date' => $request->birth_date,
-            'marital' => $request->marital,
-            'tertiary_education' => $request->tertiary_education,
-            'job' => $request->job,
-            'salary' => $request->salary,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'home_status' => $request->home_status,
-            'number_of_souls' => $request->number_of_souls,
-            'category_of_souls' => $request->category_of_souls,
-        ]);
+        if ($request->hasFile('file_ktp')) {
+            $file_ktp = $request->file('file_ktp');
+            $filename = 'images/berkas_parent/' . $file_ktp->getClientOriginalName();
+            $file_ktp->move(public_path('images'), $filename);
+            Storage::delete(public_path('images'), $filename);
+
+            $file_kk = $request->file('file_kk');
+            $filename2 = 'images/berkas_parent/' . $file_kk->getClientOriginalName();
+            $file_kk->move(public_path('images'), $filename2);
+
+            $data->update([
+                'name' => $request->name,
+                'birth_place' => $request->birth_place,
+                'birth_date' => $request->birth_date,
+                'marital' => $request->marital,
+                'tertiary_education' => $request->tertiary_education,
+                'job' => $request->job,
+                'salary' => $request->salary,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'home_status' => $request->home_status,
+                'number_of_souls' => $request->number_of_souls,
+                'category_of_souls' => $request->category_of_souls,
+                'nik' => $request->nik,
+                'file_ktp' => $filename,
+                'file_kk' => $filename2
+            ]);
+
+        } else {
+            $data->update([
+                'name' => $request->name,
+                'birth_place' => $request->birth_place,
+                'birth_date' => $request->birth_date,
+                'marital' => $request->marital,
+                'tertiary_education' => $request->tertiary_education,
+                'job' => $request->job,
+                'salary' => $request->salary,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'home_status' => $request->home_status,
+                'number_of_souls' => $request->number_of_souls,
+                'category_of_souls' => $request->category_of_souls,
+                'nik' => $request->nik,
+            ]);
+        }
 
         if ($data) {
+            // dd('berhasil');
             return redirect()->route('child.about')->with('success', 'Data berhasil ditambahkan');
         } else {
             return redirect()->route('child.update-parent')->with('error', 'Data gagal ditambahkan');
@@ -159,22 +225,46 @@ class ChildrenController extends Controller
             'birth_date' => 'required',
             'photo' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,svg,webp',
             'status_in_family' => 'required',
-            // 'regis_staus' => 'required',
             'grade' => 'required',
+            'city_address' => 'required',
             'address' => 'required',
             'class' => 'required',
-            'semester' => 'required',
             'school' => 'required',
+            'file_raport' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'file_sktm' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,svg,webp',
+            'photo_sitting_room' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'photo_front_home' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'photo_kitchen' => 'required|image|max:2048|mimes:jpg,jpeg,png',
             'status_with_parents' => 'required',
             'coordinator_id' => 'required|exists:koordinators,id',
             'parent_id' => 'required|exists:children_parents,id',
         ]);
+        // dd($request->file('file_raport'));
 
-        // dd($request->all());
         $photo = $request->file('photo');
         $filename = 'images/' . $photo->getClientOriginalName();
         $photo->move(public_path('images'), $filename);
-
+    
+        $photo = $request->file('file_raport');
+        $fileRaport = 'images/anak/' . $photo->getClientOriginalName();
+        $photo->move(public_path('images/anak/'), $fileRaport);
+    
+        $photo = $request->file('file_sktm');
+        $fileSktm = 'images/anak/' . $photo->getClientOriginalName();
+        $photo->move(public_path('images/anak/'), $fileSktm);
+    
+        $photo = $request->file('photo_sitting_room');
+        $fileSittingRoom = 'images/anak/' . $photo->getClientOriginalName();
+        $photo->move(public_path('images/anak/'), $fileSittingRoom);
+    
+        $photo = $request->file('photo_front_home');
+        $fileFrontRoom = 'images/anak/' . $photo->getClientOriginalName();
+        $photo->move(public_path('images/anak/'), $fileFrontRoom);
+    
+        $photo = $request->file('photo_kitchen');
+        $fileKitchen = 'images/anak/' . $photo->getClientOriginalName();
+        $photo->move(public_path('images/anak/'), $fileKitchen);
+    
         $user_id = auth()->user()->id;
         
         $data = Children::create([
@@ -186,23 +276,26 @@ class ChildrenController extends Controller
             'status_in_family' => $request->status_in_family,
             'regis_status' => "Pengajuan",
             'grade' => $request->grade,
+            'city_address' => $request->city_address,
             'address' => $request->address,
-            'semester' => $request->semester,
             'class' => $request->class,
             'school' => $request->school,
+            'file_raport' => $fileRaport,
+            'file_sktm' => $fileSktm,
+            'photo_sitting_room' => $fileSittingRoom,
+            'photo_front_home' => $fileFrontRoom,
+            'photo_kitchen' => $fileKitchen,
             'status_with_parents' => $request->status_with_parents,
             'coordinator_id' => $request->coordinator_id,
             'parent_id' => $request->parent_id,
             'user_id' => $user_id,
         ]);
 
-        // dd($data);
-
         if ($data) {
             // dd('berhasil');
             return redirect()->route('child.about')->withSuccess('Data Berhasil Disimpan');
         } else {
-            dd('gagal');
+            // dd('gagal');
             return redirect()->route('child.create-child')->withSuccess('Data Gagal Disimpan');
         }
     }
