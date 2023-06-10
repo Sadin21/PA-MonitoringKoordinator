@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth', 'koor']], function () {
     Route::get('/dashboard/koordinator/pengajuan', [KoordinatorController::class, 'pengajuan'])->name('koordinator.pengajuan');
     Route::get('/dashboard/koordinator/edit-pengajuan/{id}', [KoordinatorController::class, 'editPengajuan'])->name('koordinator.edit-pengajuan');
     Route::put('/dashboard/koordinator/edit-pengajuan/{id}', [KoordinatorController::class, 'updatePengajuan'])->name('koordinator.update-pengajuan');
+    Route::get('/dashboard/koordinator/riwayat-pengajuan-akun', [KoordinatorController::class, 'riwayatPengajuanAkun'])->name('koordinator.riwayat-pengajuan-akun');
 
     // beasiswa
     Route::get('/dashboard/koordinator/beasiswa', [KoordinatorController::class, 'beasiswa'])->name('koordinator.beasiswa');

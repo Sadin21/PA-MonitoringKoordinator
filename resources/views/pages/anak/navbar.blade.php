@@ -24,7 +24,11 @@
                                     <a href="{{ route('child.kegiatan') }}" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
                                         Laporan Kegiatan
                                     </a>
-                                @endif             
+                                @endif     
+                            @else
+                            <a href="{{ route('child.show-parent') }}" class="text-gray-800  px-3 py-2 rounded-md text-sm font-normal">
+                                Orang Tua
+                            </a>
                             @endif
                             {{-- <a href="" class="text-gray-800 px-3 py-2 rounded-md text-sm font-normal">
                                 Laporan Beasiswa

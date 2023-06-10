@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('status_with_parents');
             $table->string('photo')->nullable();
             $table->string('regis_status');
+            $table->string('note_status')->nullable();
             $table->string('file_raport');
             $table->string('file_sktm');
             $table->string('photo_sitting_room');

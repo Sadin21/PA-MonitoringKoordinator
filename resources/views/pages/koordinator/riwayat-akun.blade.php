@@ -1,27 +1,27 @@
 @extends('layout-koordinator')
 
-@section('title', 'Kegiatan PPA | Dashboard Koordinator')
+@section('title', 'Riwayat Akun | Dashboard Koordinator')
 @section('content')
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md">
-    <h1 class="text-2xl font-semibold">Update Laporan Kegiatan (PPA)</h1>
-    <p>Cek dan Update Data Laporan</p>
+  <h1 class="text-2xl font-semibold">Riwayat Pengajuan Anak Asuh</h1>
+  <p>Perbarui akun pegajuan</p>
 </section>
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">
     <table class="min-w-full leading-normal">
         <thead>
             <tr>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Nama Anak Asuh
+                    Username
                 </th>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Nama Surat
+                  Email
                 </th>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Link
+                    Password
                 </th>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                  Status 
-              </th>
+                    Tanggal Pembuatan
+                </th>
                 <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200 w-20">
                     Aksi
               </th>
@@ -30,55 +30,28 @@
         <tbody>
           @forelse ($data as $d)
             <tr>
-                <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                          <a href="#" class="relative block">
-                              <img src="{{ url("{$d->photo}") }}" class="mx-auto object-cover rounded-full h-10 w-10 "/>
-                          </a>
-                      </div>
-                        <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                                {{ $d->child_name }}
-                            </p>
-                        </div>
-                    </div>
-                </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->username }}
+                </p>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->email }}
+                </p>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->password }}
+                </p>
+              </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                   <p class="text-gray-900 whitespace-no-wrap">
-                      {{ $d->surah_name }}
+                    {{ $d->created_at ? $d->created_at->format('d M Y') : "kosong" }}
                   </p>
                 </td>
-                  <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                        {{ $d->youtube_link }}
-                    </p>
-                </td>
-                <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                  <span class="relative inline-block px-3 py-1 font-semibold ">
-                    @if ($d->status == 'Pengajuan') 
-                      <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
-                      </span>
-                      <span class="relative">
-                          {{ $d->status }}
-                      </span>
-                    @elseif($d->status == 'Diterima Koordinator')
-                      <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
-                      </span>
-                      <span class="relative">
-                          {{ $d->status }}
-                      </span>
-                    @elseif ($d->status == 'Perlu Revisi')
-                      <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
-                      </span>
-                      <span class="relative">
-                          {{ $d->status }}
-                      </span>
-                    @endif
-                  </span>
-                </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex gap-4">
-                  <a href="{{ route('koordinator.edit-kegiatan-ppa', $d->id) }}" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
+                  <a href="" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                     </svg>

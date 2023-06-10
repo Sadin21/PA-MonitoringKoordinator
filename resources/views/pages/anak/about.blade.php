@@ -34,33 +34,48 @@
 </div>
 @else
 <div class="grid grid-cols-5 gap-8">
-  <div class="border-2 bg-white p-4 h-80">
-      <img src="{{ asset($data->first()->photo) }}" alt="" class="w-full h-52">
-      <div class="text-center mt-4">
-        @if ($data->first()->regis_status != 'Diterima')
-          <h1>Status Pengajuan</h1>
-          <span class="relative inline-block px-3 py-1 font-semibold mt-2">
-            @if ($data->first()->regis_status == 'Pengajuan' || $data->first()->regis_status == 'Diterima Koordinator') 
-              <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
-              </span>
-              <span class="relative">
-                  {{ $data->first()->regis_status }}
-              </span>
-            @elseif ($data->first()->regis_status == 'Perlu Revisi')
-              <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
-              </span>
-              <span class="relative">
-                  {{ $data->first()->regis_status }}
-              </span>
-          </span>
-          @endif
-          @else
-          <h1>Aktif sejak</h1>
-          <p class="font-bold">
-              {{ $data->first()->updated_at->format('d M Y') }}
-          </p>
-        @endif
-      </div>
+  <div>
+    <div class="border-2 bg-white p-4">
+        <img src="{{ asset($data->first()->photo) }}" alt="" class="w-full h-52">
+        <div class="text-center mt-4">
+          @if ($data->first()->regis_status != 'Diterima')
+            <h1>Status Pengajuan</h1>
+            <span class="relative inline-block px-3 py-1 font-semibold mt-2">
+              @if ($data->first()->regis_status == 'Pengajuan' || $data->first()->regis_status == 'Diterima Koordinator') 
+                <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                </span>
+                <span class="relative">
+                    {{ $data->first()->regis_status }}
+                </span>
+              @elseif ($data->first()->regis_status == 'Perlu Revisi')
+                <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                </span>
+                <span class="relative">
+                    {{ $data->first()->regis_status }}
+                </span>
+                @endif
+            </span>
+            @else
+            <h1>Aktif sejak</h1>
+            <p class="font-bold">
+                {{ $data->first()->updated_at->format('d M Y') }}
+            </p>
+            @endif
+            <a href="{{ route('child.edit-child', $data->first()->id) }}" type="submit" class="py-2 w-24 mt-4 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+                Update
+            </a>
+        </div>
+    </div>
+    @if ($data->first()->regis_status != 'Diterima')
+        <div class="border-2 bg-white p-4 mt-8">
+            <div class="text-center mt-4">
+                <h1 clas="font-bold">Catatan</h1>
+                <div class=" relative pb-4 mt-4">
+                    <textarea type="text" id="user-info-email" class=" rounded-lg border-1 flex-1 appearance-none border border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" rows="4" />{{ $data->first()->note_status }}</textarea>
+                </div>
+            </div>
+        </div>
+    @endif
   </div>
   <div class="col-span-4">
       <div class="border-2 bg-white p-4 grid grid-cols-2">
@@ -99,6 +114,14 @@
                               {{ $data->first()->birth_place }}, {{ $data->first()->birth_date }}
                           </td>
                       </tr>
+                      <tr class="text-gray-700">
+                        <td class="p-4">
+                            Alamat
+                        </td>
+                        <td class="p-4 font-bold">
+                            {{ $data->first()->address }}, {{ $data->first()->city_address }}
+                        </td>
+                    </tr>
                   </tbody>
               </table>
           </div>
@@ -114,6 +137,14 @@
                           </td>
                       </tr>
                       <tr class="text-gray-700">
+                        <td class="p-4">
+                            Nama Koordinator
+                        </td>
+                        <td class="p-4 font-bold">
+                            {{ $data->first()->koor_name }}
+                        </td>
+                    </tr>
+                      <tr class="text-gray-700">
                           <td class="p-4">
                               Sekolah
                           </td>
@@ -127,14 +158,6 @@
                           </td>
                           <td class="p-4 font-bold">
                               {{ $data->first()->class }} {{ $data->first()->grade }}
-                          </td>
-                      </tr>
-                      <tr class="text-gray-700">
-                          <td class="p-4">
-                              Alamat
-                          </td>
-                          <td class="p-4 font-bold">
-                              {{ $data->first()->address }}, {{ $data->first()->city_address }}
                           </td>
                       </tr>
                   </tbody>

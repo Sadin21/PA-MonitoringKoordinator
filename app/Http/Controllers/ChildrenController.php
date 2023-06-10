@@ -23,8 +23,9 @@ class ChildrenController extends Controller
         $dataParent = children_parent::get();
         $data = User::join('children', 'users.id', '=', 'children.user_id')
             ->join('children_parents', 'children_parents.id', '=', 'children.parent_id')
+            ->join('koordinators', 'koordinators.id', '=', 'children.coordinator_id')
             ->where('children.user_id', auth()->user()->id)
-            ->get(['children.*', 'children_parents.name as parent_name']);
+            ->get(['children.*', 'children_parents.name as parent_name', 'koordinators.name as koor_name']);
         return view('pages.anak.about', [
             'dataParent' => $dataParent,
             'data' => $data
@@ -101,7 +102,7 @@ class ChildrenController extends Controller
         // dd($data);
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.about')->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route('child.show-parent')->with('success', 'Data berhasil ditambahkan');
         } else {
             return redirect()->route('child.store-parent')->with('error', 'Data gagal ditambahkan');
         }
@@ -306,6 +307,8 @@ class ChildrenController extends Controller
         $dataKoor = Koordinator::get();
         $dataParent = children_parent::get();
 
+        // dd($data);
+
         return view('pages.anak.update-children', [
             'data' => $data,
             'dataKoor' => $dataKoor,
@@ -315,19 +318,24 @@ class ChildrenController extends Controller
 
     public function updateChildrenData(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'gender' => 'required',
             'birth_place' => 'required',
             'birth_date' => 'required',
-            'photo' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,svg,webp',
+            'photo' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,svg,webp',
             'status_in_family' => 'required',
-            // 'regis_staus' => 'required',
             'grade' => 'required',
-            'class' => 'required',
-            'grade' => 'required',
+            'city_address' => 'required',
             'address' => 'required',
+            'class' => 'required',
             'school' => 'required',
+            'file_raport' => 'nullable|image|max:2048|mimes:jpg,jpeg,png',
+            'file_sktm' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,svg,webp',
+            'photo_sitting_room' => 'nullable|image|max:2048|mimes:jpg,jpeg,png',
+            'photo_front_home' => 'nullable|image|max:2048|mimes:jpg,jpeg,png',
+            'photo_kitchen' => 'nullable|image|max:2048|mimes:jpg,jpeg,png',
             'status_with_parents' => 'required',
             'coordinator_id' => 'required|exists:koordinators,id',
             'parent_id' => 'required|exists:children_parents,id',
@@ -335,12 +343,30 @@ class ChildrenController extends Controller
 
         $children = Children::findOrFail($id);
 
-        if ($request->hasFile('photo')) {
-
+        if ($request->hasFile('photo') || $request->hasFile('file_raport') || $request->hasFile('file_sktm') || $request->hasFile('photo_sitting_room') || $request->hasFile('photo_front_home') || $request->hasFile('photo_kitchen')) {
             $photo = $request->file('photo');
             $filename = 'images/' . $photo->getClientOriginalName();
             $photo->move(public_path('images'), $filename);
-            Storage::delete(public_path('images'), $filename);
+        
+            $photo = $request->file('file_raport');
+            $fileRaport = 'images/anak/' . $photo->getClientOriginalName();
+            $photo->move(public_path('images/anak/'), $fileRaport);
+        
+            $photo = $request->file('file_sktm');
+            $fileSktm = 'images/anak/' . $photo->getClientOriginalName();
+            $photo->move(public_path('images/anak/'), $fileSktm);
+        
+            $photo = $request->file('photo_sitting_room');
+            $fileSittingRoom = 'images/anak/' . $photo->getClientOriginalName();
+            $photo->move(public_path('images/anak/'), $fileSittingRoom);
+        
+            $photo = $request->file('photo_front_home');
+            $fileFrontRoom = 'images/anak/' . $photo->getClientOriginalName();
+            $photo->move(public_path('images/anak/'), $fileFrontRoom);
+        
+            $photo = $request->file('photo_kitchen');
+            $fileKitchen = 'images/anak/' . $photo->getClientOriginalName();
+            $photo->move(public_path('images/anak/'), $fileKitchen);
     
             $user_id = auth()->user()->id;
 
@@ -353,10 +379,15 @@ class ChildrenController extends Controller
                 'status_in_family' => $request->status_in_family,
                 'regis_status' => "Pengajuan",
                 'grade' => $request->grade,
-                'class' => $request->class,
+                'city_address' => $request->city_address,
                 'address' => $request->address,
-                'semester' => $request->semester,
+                'class' => $request->class,
                 'school' => $request->school,
+                'file_raport' => $fileRaport,
+                'file_sktm' => $fileSktm,
+                'photo_sitting_room' => $fileSittingRoom,
+                'photo_front_home' => $fileFrontRoom,
+                'photo_kitchen' => $fileKitchen,
                 'status_with_parents' => $request->status_with_parents,
                 'coordinator_id' => $request->coordinator_id,
                 'parent_id' => $request->parent_id,
@@ -374,7 +405,6 @@ class ChildrenController extends Controller
                 'regis_status' => "Pengajuan",
                 'grade' => $request->grade,
                 'address' => $request->address,
-                'semester' => $request->semester,
                 'class' => $request->class,
                 'school' => $request->school,
                 'status_with_parents' => $request->status_with_parents,

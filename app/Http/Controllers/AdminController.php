@@ -121,15 +121,18 @@ class AdminController extends Controller
     public function updatePengajuanChildren(Request $request, $id)
     {
         $this->validate($request, [
-            'regis_status' => 'required'
+            'regis_status' => 'required',
+            'note_status' => 'nullable'
         ]);
 
         $data = Children::findOrFail($id);
 
         $data->update([
-            'regis_status' => $request->regis_status
+            'regis_status' => $request->regis_status,
+            'note_status' => $request->note_status
         ]);
 
+        // dd($data);
         if ($data) {
             // dd('berhasil');
             return redirect()->route('admin.pengajuan');

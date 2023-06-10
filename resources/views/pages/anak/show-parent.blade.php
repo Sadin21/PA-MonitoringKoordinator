@@ -9,7 +9,10 @@
       <div class="flex gap-4">
         <a  href="{{ route('child.about') }}" type="button" class="py-2 w-40 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
           Kembali
-      </a>
+        </a>
+        <a  href="{{ route('child.create-parent') }}" type="button" class="py-2 w-40 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
+          Tambah
+        </a>
       </div>
   </section>
   <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">

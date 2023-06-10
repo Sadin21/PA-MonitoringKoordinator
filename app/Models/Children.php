@@ -24,6 +24,7 @@ class Children extends Model
         'status_with_parents',
         'photo',
         'regis_status',
+        'note_status',
         'file_raport',
         'file_sktm',
         'photo_sitting_room',

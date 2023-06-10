@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="col-span-4">
-            <div class="border-2 bg-white p-4 grid grid-cols-2">
+            {{-- <div class="border-2 bg-white p-4 grid grid-cols-2">
                 <div>
                     <table class="table p-4 bg-white w-full">
                         <tbody>
@@ -66,9 +66,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
             <div>
-                <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-8">
+                <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md">
                     <h1 class="text-2xl font-semibold">Update Data Diri</h1>
                     <p>Perbarui akun dan data dirimu</p>
                     <form class="mt-10" action="{{ route('koordinator.update-data', $data->id) }}" method="POST" enctype="multipart/form-data">

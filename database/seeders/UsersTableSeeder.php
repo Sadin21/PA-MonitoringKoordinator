@@ -15,42 +15,42 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Admin',
+                'username' => 'Admin',
                 'role_id' => '1',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt('123'),
                 'remember_token' =>Str::random(60)
             ],
             [
-                'name' => 'Ismail Marzuki',
+                'username' => 'Ismail Marzuki',
                 'role_id' => '2',
                 'email' => 'koor@koor.com',
                 'password' => bcrypt('123'),
                 'remember_token' =>Str::random(60)
             ],
             [
-                'name' => 'Ahmad Sanusi',
+                'username' => 'Ahmad Sanusi',
                 'role_id' => '2',
                 'email' => 'koor2@koor.com',
                 'password' => bcrypt('123'),
                 'remember_token' =>Str::random(60)
             ],
             [
-                'name' => 'Muzakki',
+                'username' => 'Muzakki',
                 'role_id' => '2',
                 'email' => 'koor3@koor.com',
                 'password' => bcrypt('123'),
                 'remember_token' =>Str::random(60)
             ],
             [
-                'name' => 'Syahrul',
+                'username' => 'Syahrul',
                 'role_id' => '3',
                 'email' => 'anak@anak.com',
                 'password' => bcrypt('123'),
                 'remember_token' =>Str::random(60)
             ],
             [
-                'name' => 'Rizky',
+                'username' => 'Rizky',
                 'role_id' => '3',
                 'email' => 'anak2@anak.com',
                 'password' => bcrypt('123'),

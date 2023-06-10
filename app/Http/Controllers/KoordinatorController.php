@@ -191,13 +191,15 @@ class KoordinatorController extends Controller
     public function updatePengajuan(Request $request, $id)
     {
         $this->validate($request, [
-            'regis_status' => 'required'
+            'regis_status' => 'required',
+            'note_status' => 'nullable'
         ]);
 
         $data = Children::findOrFail($id);
 
         $data->update([
-            'regis_status' => $request->regis_status
+            'regis_status' => $request->regis_status,
+            'note_status' => $request->note_status
         ]);
 
         if ($data) {
@@ -209,11 +211,22 @@ class KoordinatorController extends Controller
         }
     }
 
+    public function riwayatPengajuanAkun()
+    {
+        $data = User::where('role_id', 3)
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('pages.koordinator.riwayat-akun', [
+            'data' => $data
+        ]);
+    }
+
     public function beasiswa()
     {
         $data = Children::join('beasiswa_reports', 'children.id', '=', 'beasiswa_reports.child_id')
         ->join('koordinators', 'children.coordinator_id', '=', 'koordinators.id')
         ->where('koordinators.user_id', '=', Auth()->user()->id)
+        ->orderBy('created_at', 'desc')
         ->get(['children.name as child_name', 'children.photo as photo', 'beasiswa_reports.*']);
         // dd($data);
 

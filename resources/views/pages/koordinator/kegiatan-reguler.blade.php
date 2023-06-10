@@ -56,13 +56,13 @@
                 </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                   <span class="relative inline-block px-3 py-1 font-semibold ">
-                    @if ($d->status == 'Pengajuan' || $d->status == 'Diterima Koordinator') 
+                    @if ($d->status == 'Pengajuan') 
                       <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
                       </span>
                       <span class="relative">
                           {{ $d->status }}
                       </span>
-                    @elseif($d->status == 'Diterima')
+                    @elseif($d->status == 'Diterima Koordinator')
                       <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
                       </span>
                       <span class="relative">

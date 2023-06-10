@@ -167,7 +167,7 @@
             <form class="mt-10" action="{{ route('admin.update-pengajuan-anak', $data->first()->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                @if ($data->first()->regis_status == 'Diterima')
+                {{-- @if ($data->first()->regis_status == 'Diterima')
                 <div class="grid grid-cols-2 gap-8">
                     <div>
                         <h1 class="pb-4">Status</h1>
@@ -180,25 +180,32 @@
                         </div>
                     </div>
                 @else
-                    <div class="grid grid-cols-2 gap-8">
-                        <div>
-                            <h1 class="pb-4">Status</h1>
-                            <div class=" relative pb-4"> 
-                                    <select
-                                    class="rounded-lg border-1 flex-1 appearance-none border border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="regis_status">
-                                        <option value="Pengajuan" {{ $data->first()->regis_status == 'Pengajuan' ? 'selected' : '' }}>Pengajuan</option>
-                                        <option value="Diterima" {{ $data->first()->regis_status == 'Diterima' ? 'selected' : '' }}>Diterima</option>
-                                        <option value="Perlu Revisi" {{ $data->first()->regis_status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="">
-                                <button type="submit" class="py-2 w-24 mt-10 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
-                                    Submit
-                                </button>
-                            </div>
+                @endif --}}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h1 class="pb-4">Keterangan</h1>
+                        <div class="relative pb-4">
+                            <textarea id="user-info-email" name="note_status" class="rounded-lg border-1 flex-1 appearance-none w-full border border-gray-300 py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="note_status" rows="4">{{ $data->first()->note_status }}</textarea>
+                        </div>                            
+                    </div>
+                    <div>
+                        <h1 class="pb-4">Status</h1>
+                        <div class=" relative pb-4"> 
+                            <select
+                            class="rounded-lg border-1 flex-1 appearance-none border border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="regis_status">
+                                <option value="Pengajuan" {{ $data->first()->regis_status == 'Pengajuan' ? 'selected' : '' }}>Pengajuan</option>
+                                <option value="Diterima Koordinator" {{ $data->first()->regis_status == 'Diterima Koordinator' ? 'selected' : '' }}>Diterima Koordinator</option>
+                                <option value="Diterima" {{ $data->first()->regis_status == 'Diterima' ? 'selected' : '' }}>Diterima</option>
+                                <option value="Perlu Revisi" {{ $data->first()->regis_status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
+                            </select>
                         </div>
-                @endif
+                        <div class="">
+                            <button type="submit" class="py-2 w-24 mt-4 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+                                Submit
+                            </button>
+                        </div> 
+                    </div>
+                </div>
                 </form>
         </div>
 </section>

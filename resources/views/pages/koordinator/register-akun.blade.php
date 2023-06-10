@@ -3,8 +3,8 @@
 @section('title', 'Pengajuan | Dashboard Koordinator')
 @section('content')
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-2">
-  <h1 class="text-2xl font-semibold">Informasi Akun</h1>
-  <p>Perbarui akun dan data dirimu</p>
+  <h1 class="text-2xl font-semibold">Register Akun Anak Asuh</h1>
+  <p>Buat akun baru untuk pengajuan</p>
   <form class="mt-10" action="{{ route('koordinator.store-register') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="grid grid-cols-2 gap-8">
