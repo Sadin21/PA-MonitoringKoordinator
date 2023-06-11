@@ -27,15 +27,23 @@
             <tbody>
               @forelse ($dataChildren as $d)
                 <tr>
-                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                        <span aria-hidden="true" class="absolute inset-0 {{ $d->status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
+                  <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                    <span class="relative inline-block px-3 py-1 font-semibold ">
+                      @if ($d->status == 'Pengajuan' || $d->status == 'Diterima Koordinator') 
+                        <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
                         </span>
                         <span class="relative">
                             {{ $d->status }}
                         </span>
-                      </span>
-                    </td>
+                      @elseif($d->status == 'Diterima')
+                        <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                        </span>
+                        <span class="relative">
+                            {{ $d->status }}
+                        </span>
+                      @endif
+                    </span>
+                  </td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex gap-4">
                       <a href="" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

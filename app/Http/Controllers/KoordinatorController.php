@@ -11,7 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Children;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KoordinatorController extends Controller
 {
@@ -101,10 +101,11 @@ class KoordinatorController extends Controller
         ]);
 
         if ($data) {
-            return redirect()->route('koordinator.about')->withSuccess('Data Berhasil Disimpan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('koordinator.about');
         } else {
-            dd('gagal');
-            return redirect()->route('koordinator.create-data')->withSuccess('Data Gagal Disimpan');
+            Alert::success('Data Gagal Disimpan');
+            return redirect()->route('koordinator.create-data');
         }
     }
 
@@ -154,7 +155,8 @@ class KoordinatorController extends Controller
         }
 
         if ($data) {
-            return redirect()->route('koordinator.about')->withSuccess('Data Berhasil Diperbarui');
+            Alert::success('Update Berhasil');
+            return redirect()->route('koordinator.about');
         } else {
             return redirect()->route('koordinator.edit-data')->withSuccess('Data Gagal Diperbarui');
         }
@@ -204,6 +206,7 @@ class KoordinatorController extends Controller
 
         if ($data) {
             // dd('berhasil');
+            Alert::success('Data Berhasil Disimpan');
             return redirect()->route('koordinator.pengajuan');
         } else {
             // dd('gagal');
@@ -235,10 +238,10 @@ class KoordinatorController extends Controller
         ]);
     }
 
-    public function editBeasiswa($id = null)
+    public function editBeasiswa($id)
     {
         $data = Children::join('beasiswa_reports', 'children.id', '=', 'beasiswa_reports.child_id')
-        ->where('children.id', $id)
+        ->where('beasiswa_reports.id', $id)
         ->get(['children.name as child_name', 'children.photo as photo', 'beasiswa_reports.*']);
 
         return view('pages.koordinator.update-beasiswa', [
@@ -259,6 +262,7 @@ class KoordinatorController extends Controller
         ]);
 
         if ($data) {
+            Alert::success('Data Berhasil Disimpan');
             return redirect()->route('koordinator.beasiswa');
         } else {
             return view('pages.koordinator.update-beasiswa');
@@ -280,9 +284,9 @@ class KoordinatorController extends Controller
     public function editAkademik($id = null)
     {
         $data = Children::join('academic_reports', 'children.id', '=', 'academic_reports.child_id')
-        ->join('koordinators', 'children.coordinator_id', '=', 'koordinators.id')
-        ->where('children.id', $id)
+        ->where('academic_reports.id', $id)
         ->get(['children.name as child_name', 'children.photo as photo', 'academic_reports.*']);
+        // dd($data);
 
         return view('pages.koordinator.update-akademik', [
             'data' => $data
@@ -302,6 +306,7 @@ class KoordinatorController extends Controller
         ]);
 
         if ($data) {
+            Alert::success('Data Berhasil Disimpan');
             return redirect()->route('koordinator.akademik');
         } else {
             return view('pages.koordinator.update-akademik');
@@ -348,6 +353,7 @@ class KoordinatorController extends Controller
         ]);
 
         if ($data) {
+            Alert::success('Data Berhasil Disimpan');
             return redirect()->route('koordinator.kegiatan');
         } else {
             return view('pages.koordinator.update-kegiatan');
@@ -394,6 +400,7 @@ class KoordinatorController extends Controller
         ]);
 
         if ($data) {
+            Alert::success('Data Berhasil Disimpan');
             return redirect()->route('koordinator.kegiatan-ppa');
         } else {
             return view('pages.koordinator.update-kegiatan-ppa');

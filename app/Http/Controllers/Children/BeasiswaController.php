@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\beasiswa_report;
 use App\Models\Children;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class BeasiswaController extends Controller
 {
@@ -51,9 +52,10 @@ class BeasiswaController extends Controller
 
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.beasiswa')->with('success', 'Data berhasil ditambahkan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.beasiswa');
         } else {
-            return redirect()->route('child.beasiswa')->with('error', 'Data gagal ditambahkan');
+            return redirect()->route('child.beasiswa');
         }
     }
 }

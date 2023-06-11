@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Children;
 use App\Models\children_parent;
-use App\Models\ChildrenParent;
 use App\Models\Koordinator;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ChildrenController extends Controller
 {
@@ -102,9 +101,10 @@ class ChildrenController extends Controller
         // dd($data);
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.show-parent')->with('success', 'Data berhasil ditambahkan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.show-parent');
         } else {
-            return redirect()->route('child.store-parent')->with('error', 'Data gagal ditambahkan');
+            return redirect()->route('child.store-parent');
         }
 
     }
@@ -187,9 +187,10 @@ class ChildrenController extends Controller
 
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.about')->with('success', 'Data berhasil ditambahkan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.about');
         } else {
-            return redirect()->route('child.update-parent')->with('error', 'Data gagal ditambahkan');
+            return redirect()->route('child.update-parent');
         }
          
     }
@@ -294,10 +295,12 @@ class ChildrenController extends Controller
 
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.about')->withSuccess('Data Berhasil Disimpan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.about');
         } else {
             // dd('gagal');
-            return redirect()->route('child.create-child')->withSuccess('Data Gagal Disimpan');
+            Alert::error('Data Gagal Dibuat');
+            return redirect()->route('child.create-child');
         }
     }
 
@@ -318,7 +321,6 @@ class ChildrenController extends Controller
 
     public function updateChildrenData(Request $request, $id)
     {
-        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'gender' => 'required',
@@ -416,10 +418,11 @@ class ChildrenController extends Controller
 
         if ($children) {
             // dd('berhasil');
-            return redirect()->route('child.about')->withSuccess('Data Berhasil Diperbarui');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.about');
         } else {
             dd('gagal');
-            return redirect()->route('child.edit-child')->withSuccess('Data Gagal Diperbarui');
+            return redirect()->route('child.edit-child');
         }
     }
 

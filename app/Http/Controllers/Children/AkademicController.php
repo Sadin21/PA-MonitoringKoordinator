@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\academic_report;
 use App\Models\Children;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AkademicController extends Controller
 {
@@ -52,9 +53,10 @@ class AkademicController extends Controller
 
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.akademik')->with('success', 'Data berhasil ditambahkan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.akademik');
         } else {
-            return redirect()->route('child.akademik')->with('error', 'Data gagal ditambahkan');
+            return redirect()->route('child.akademik');
         }
     }
 }

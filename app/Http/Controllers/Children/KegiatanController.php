@@ -7,6 +7,7 @@ use App\Models\activity_ppas_report;
 use App\Models\activity_reguler_report;
 use App\Models\Children;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KegiatanController extends Controller
 {
@@ -82,9 +83,10 @@ class KegiatanController extends Controller
 
         if ($data) {
             // dd('berhasil');
-            return redirect()->route('child.kegiatan')->with('success', 'Data Berhasil Ditambahkan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.kegiatan');
         } else {
-            return redirect()->route('child.kegiatan')->with('failed', 'Data Gagal Ditambahkan');
+            return redirect()->route('child.kegiatan');
         }
     }
 
@@ -125,9 +127,10 @@ class KegiatanController extends Controller
         // dd($data);
 
         if ($data) {
-            return redirect()->route('child.kegiatan-ppa')->with('success', 'Data Berhasil Ditambahkan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('child.kegiatan-ppa');
         } else {
-            return redirect()->route('child.kegiatan-ppa')->with('failed', 'Data Gagal Ditambahkan');
+            return redirect()->route('child.kegiatan-ppa');
         }
     }
 }

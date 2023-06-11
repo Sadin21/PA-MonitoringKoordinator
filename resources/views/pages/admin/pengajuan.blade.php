@@ -58,12 +58,26 @@
                   </p>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                  <span aria-hidden="true" class="absolute inset-0 {{ $d->regis_status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
-                  </span>
-                  <span class="relative">
-                      {{ $d->regis_status }}
-                  </span>
+                <span class="relative inline-block px-3 py-1 font-semibold ">
+                  @if ($d->regis_status == 'Pengajuan' || $d->regis_status == 'Diterima Koordinator') 
+                    <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                    </span>
+                    <span class="relative">
+                        {{ $d->regis_status }}
+                    </span>
+                  @elseif($d->regis_status == 'Diterima')
+                    <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                    </span>
+                    <span class="relative">
+                        {{ $d->regis_status }}
+                    </span>
+                  @elseif ($d->regis_status == 'Perlu Revisi')
+                    <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                    </span>
+                    <span class="relative">
+                        {{ $d->regis_status }}
+                    </span>
+                  @endif
                 </span>
               </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 flex gap-4">

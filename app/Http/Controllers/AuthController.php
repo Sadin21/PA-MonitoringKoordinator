@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -28,14 +29,14 @@ class AuthController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|unique:users',
             'password'=> 'required',
             'role_id' => 'required'
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'role_id'=> $request->role_id,
             'password' => Hash::make($request->password),
@@ -55,13 +56,13 @@ class AuthController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|unique:users',
             'password'=> 'required',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'role_id'=> '3',
             'password' => Hash::make($request->password),
@@ -70,8 +71,10 @@ class AuthController extends Controller
         // dd($user);
 
         if ($user) {
-            return redirect()->route('koordinator.pengajuan');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('koordinator.pengajuan');;
         } else {
+            Alert::error('Data Gagal Dibuat');
             return redirect()->route('koordinator.register');
         }
 
@@ -91,7 +94,7 @@ class AuthController extends Controller
             
             if ($user->role_id == 1) {
                 // dd('berhasil');
-                return redirect()->route('admin.index')->withSuccess('Login Berhasil');
+                return redirect()->route('admin.index');
             } elseif ($user->role_id == 2) {
                 // dd('koor');
                 return redirect()->route('koordinator.index')->withSuccess('Login Berhasil');

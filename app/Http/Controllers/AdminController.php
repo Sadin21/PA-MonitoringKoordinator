@@ -6,6 +6,7 @@ use App\Models\Children;
 use App\Models\Koordinator;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -98,6 +99,7 @@ class AdminController extends Controller
     public function riwayatPengajuan()
     {
         $data = Children::join('children_parents', 'children_parents.id', '=', 'children.parent_id')
+        ->orderBy('children.created_at', 'desc')
         ->get(['children.*', 'children_parents.name as parent_name']);
 
         return view('pages.admin.riwayat-pengajuan', [
@@ -135,6 +137,7 @@ class AdminController extends Controller
         // dd($data);
         if ($data) {
             // dd('berhasil');
+            Alert::success('Data Berhasil Diperbarui');
             return redirect()->route('admin.pengajuan');
         } else {
             // dd('gagal');

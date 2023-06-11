@@ -15,6 +15,7 @@
   </style>
 </head>
 <body class="bg-[#F4F4F4]">
+  @include('sweetalert::alert')
     <section class="sticky top-0">
       @include('pages.anak.navbar')
     </section>

@@ -11,7 +11,7 @@
           <div>
               <div class="mb-4 relative ">
                   <label for="" class="">Username</label>
-                  <input type="text" id="contact-form-name" name="name" class=" rounded-lg border-2 flex-1 appearance-none border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent" placeholder="name"/>
+                  <input type="text" id="contact-form-name" name="username" class=" rounded-lg border-2 flex-1 appearance-none border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent" placeholder="name"/>
               </div>
               <div class="mb-4 relative ">
                 <label for="" class="">Email</label>
