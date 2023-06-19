@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Children;
 use App\Models\Koordinator;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
@@ -44,11 +47,30 @@ class AdminController extends Controller
 
     public function anak()
     {
-        $dataChildren = Children::where('regis_status', '=', 'Diterima')->get();
+        // $dataChildren = Children::where('regis_status', '=', 'Diterima')->get();
+
+        $response = Http::get('http://localhost:8000/api/children')['data'];
 
         return view('pages.admin.anak', [
-            'dataChildren' => $dataChildren
+            'dataChildren' => $response
         ]);
+        
+    }
+
+    public function getAnak(): JsonResponse
+    {
+        try {
+            $dataChildren = Children::where('regis_status', '=', 'Diterima')->get();
+            return response()->json([
+                'status' => 'success',
+                'data' => $dataChildren
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function detailAnak($id)

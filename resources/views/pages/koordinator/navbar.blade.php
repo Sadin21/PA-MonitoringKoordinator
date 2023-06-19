@@ -28,7 +28,7 @@
                         <div class="relative inline-block text-left">
                             <div>
                                 <button type="button" id="about" class="  flex items-center justify-center w-full rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" id="options-menu">
-                                    <img src="{{ asset(Auth()->user()->coordinator ? Auth()->user()->coordinator->photo : 'images/images 1.png' ) }}" alt="" class="h-12 w-12 rounded-md">
+                                    <img src="{{ asset(Auth()->user()->coordinator ? Auth()->user()->coordinator->photo : 'images/logo-kanan.png' ) }}" alt="" class="h-12 w-12 rounded-md">
                                 </button>
                             </div>
                             <div id="about-menu" class="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5" style="display: none">

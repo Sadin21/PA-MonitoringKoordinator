@@ -7,31 +7,31 @@
     <p>Cek dan Update Data Laporan</p>
 </section>
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">
-    <table class="min-w-full leading-normal">
-        <thead>
-            <tr>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Nama Anak Asuh
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Nilai Tertinggi
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Nilai Rata - Rata
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    File 
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                  Status 
-              </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200 w-20">
-                    Aksi
-              </th>
-            </tr>
-        </thead>
-        <tbody>
-          @forelse ($data as $d)
+  <table id="example" class="stripe hover" style="width:100%; padding-top: 3em;  padding-bottom: 3em;">
+    <thead>
+      <tr>
+        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+            Nama Anak Asuh
+        </th>
+        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+            Nilai Tertinggi
+        </th>
+        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+            Nilai Rata - Rata
+        </th>
+        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+            File 
+        </th>
+        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+          Status 
+      </th>
+        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200 w-20">
+            Aksi
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+      @foreach ($data as $d)
             <tr>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                     <div class="flex items-center">
@@ -100,10 +100,21 @@
                   </form>
               </td>
             </tr>
-          @empty
-              <h1>data kosonggg</h1>
-          @endforelse
-        </tbody>
-    </table>
+          @endforeach
+    </tbody>
+</table>
 </section>
+@endsection
+
+@section('script')
+<script>
+  $(document).ready(function() {
+
+  var table = $('#example').DataTable({
+      responsive: true
+      })
+      .columns.adjust()
+      .responsive.recalc();
+  });
+</script>
 @endsection

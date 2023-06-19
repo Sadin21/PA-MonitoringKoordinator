@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth', 'koor']], function () {
     Route::get('/dashboard/koordinator', [KoordinatorController::class, 'index'])->name('koordinator.index');
     Route::get('/dashboard/koordinator/detail-anak/{id}', [KoordinatorController::class, 'detailIndex'])->name('koordinator.detail-index');
+    Route::get('/dashboard/koordinator/dataIndexBeasiswa/{id}', [KoordinatorController::class, 'dataIndexBeasiswa'])->name('koordinator.data-index-beasiswa');
 
     Route::get('/dashboard/koordinator/about', [KoordinatorController::class, 'about'])->name('koordinator.about');
     Route::get('/dashboard/koordinator/create-data', [KoordinatorController::class, 'createData'])->name('koordinator.create-data');

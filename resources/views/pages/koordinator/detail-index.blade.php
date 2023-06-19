@@ -141,128 +141,188 @@
                 </tbody>
             </table>
         </div>
-        <div class="border-2 bg-white p-4 mt-8">
-            <h1 class="font-semibold text-2xl">Laporan Beasiswa</h1>
-            <table class="min-w-full leading-normal border-2 mt-6">
-                <thead>
-                    <tr>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            Tanggal 
-                        </th>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            Nominal
-                        </th>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            File 
-                        </th>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                          Status 
-                    </tr>
-                </thead>
-                <tbody>
-                  @forelse ($dataBeasiswa as $b)
-                    <tr>
-                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <p class="text-gray-900 whitespace-no-wrap">
-                              {{ $b->created_at->format('d M Y') }}
-                          </p>
-                        </td>
-                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <p class="text-gray-900 whitespace-no-wrap">
-                              {{ $b->nominal }}
-                          </p>
-                        </td>
-                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <img src="{{ url("{$b->file}") }}" class="mx-auto object-cover border-4 rounded-sm h-24 w-28 "/>
-                        </td>
-                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                            <span aria-hidden="true" class="absolute inset-0 {{ $b->status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
-                            </span>
-                            <span class="relative">
-                                {{ $b->status }}
-                            </span>
-                          </span>
-                        </td>
-                    </tr>
-                  @empty
-                      <h1>data kosonggg</h1>
-                  @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="border-2 bg-white p-4 mt-8">
-            <h1 class="font-semibold text-2xl">Laporan Akademik</h1>
-            <table class="w-full leading-normal mt-6 border-2">
-                <thead>
-                    <tr>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            Tanggal
-                        </th>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            Nilai Rata - Rata
-                        </th>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            File 
-                        </th>
-                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                          Status 
-                      </th>
-                    </tr>
-                </thead>
-                <tbody>
-                  @forelse ($dataAkademik as $a)
+    </div>
+</div>
+<div class="border-2 bg-white p-4 mt-8">
+    <h1 class="font-semibold text-2xl mb-6">Laporan Beasiswa</h1>
+    <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded bg-white border-2">
+        <table id="example" class="stripe hover" style="width:100%; padding-top: 3em;  padding-bottom: 3em;">
+            <thead>
+                <tr>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        Tanggal
+                    </th>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        Nominal
+                    </th>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        File
+                    </th>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                    Status 
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($dataBeasiswa as $b)
                     <tr>
                         <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <p class="text-gray-900 whitespace-no-wrap">
-                              {{ $a->created_at->format('d M Y') }}
-                          </p>
-                        </td>
-                          <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                             <p class="text-gray-900 whitespace-no-wrap">
-                                {{ $a->meanScore }}
+                                {{ $b->created_at->format('d M Y') }}
                             </p>
                         </td>
                         <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <img src="{{ url("{$a->file}") }}" class="mx-auto object-cover border-4 rounded-sm h-24 w-28 "/>
+                        <p class="text-gray-900 whitespace-no-wrap">
+                            {{ $b->nominal }}
+                        </p>
                         </td>
                         <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                          <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                            <span aria-hidden="true" class="absolute inset-0 {{ $a->status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
-                            </span>
-                            <span class="relative">
-                                {{ $a->status }}
-                            </span>
-                          </span>
+                            <p class="text-gray-900 whitespace-no-wrap">
+                                <img src="{{ url("{$b->file}") }}" class="mx-auto object-cover border-4 rounded-sm h-24 w-28 "/>
+                            </p>
                         </td>
-                        </tr>
-                  @empty
-                      <h1>data kosonggg</h1>
-                  @endforelse
-                </tbody>
-            </table>
-        </div>
-        @if ($data->first()->status_in_family == 'Penghafal al Quran')
-            <div class="border-2 bg-white p-4 mt-8">
-                <h1 class="font-semibold text-2xl">Laporan Kegiatan (PPA)</h1>
-                <table class="w-full leading-normal mt-6 border-2">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                                Nama Surat
-                            </th>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                                Link
-                            </th>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            Status 
+                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                            <span class="relative inline-block px-3 py-1 font-semibold ">
+                                @if ($b->status == 'Pengajuan') 
+                                  <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                                  </span>
+                                  <span class="relative">
+                                      {{ $b->status }}
+                                  </span>
+                                @elseif($b->status == 'Diterima Koordinator')
+                                  <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                                  </span>
+                                  <span class="relative">
+                                      {{ $b->status }}
+                                  </span>
+                                @elseif ($b->status == 'Perlu Revisi')
+                                  <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                                  </span>
+                                  <span class="relative">
+                                      {{ $b->status }}
+                                  </span>
+                                @endif
+                              </span>
+                        </span>
+                        </td>
+                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                            <a href="{{ route('koordinator.update-beasiswa', $b->id) }}" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                                </svg>
+                              </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="border-2 bg-white p-4 mt-8">
+    <h1 class="font-semibold text-2xl mb-6">Laporan Akademik</h1>
+    <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded bg-white border-2">
+        <table id="akademik" class="stripe hover" style="width:100%; padding-top: 3em;  padding-bottom: 3em;">
+            <thead>
+                <tr>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        Tanggal
+                    </th>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        Nilai Rata - Rata
+                    </th>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        File 
+                    </th>
+                    <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                      Status 
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Aksi
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($dataAkademik as $a)
+                <tr>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                    <p class="text-gray-900 whitespace-no-wrap">
+                        {{ $a->created_at->format('d M Y') }}
+                    </p>
+                    </td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                        <p class="text-gray-900 whitespace-no-wrap">
+                            {{ $a->meanScore }}
+                        </p>
+                    </td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                    <img src="{{ url("{$a->file}") }}" class="mx-auto object-cover border-4 rounded-sm h-24 w-28 "/>
+                    </td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                        <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
+                            <span class="relative inline-block px-3 py-1 font-semibold ">
+                                @if ($a->status == 'Pengajuan') 
+                                <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                                </span>
+                                <span class="relative">
+                                    {{ $a->status }}
+                                </span>
+                                @elseif($a->status == 'Diterima Koordinator')
+                                <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                                </span>
+                                <span class="relative">
+                                    {{ $a->status }}
+                                </span>
+                                @elseif ($a->status == 'Perlu Revisi')
+                                <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                                </span>
+                                <span class="relative">
+                                    {{ $a->status }}
+                                </span>
+                                @endif
+                            </span>
+                        </span>
+                    </td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                        <a href="{{ route('koordinator.edit-akademik', $a->id) }}" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                            </svg>
+                          </a>
+                    </td>
+                    </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@if ($data->first()->status_in_family == 'Penghafal al Quran')
+    <div class="border-2 bg-white p-4 mt-8">
+        <h1 class="font-semibold text-2xl mb-6">Laporan Kegiatan (PPA)</h1>
+        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded bg-white border-2">
+            <table id="kegiatan-ppa" class="stripe hover" style="width:100%; padding-top: 3em;  padding-bottom: 3em;">
+                <thead>
+                    <tr>
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                            Nama Surat
                         </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @forelse ($dataKegiatanPPA as $p)
-                        <tr>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                            Link
+                        </th>
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        Status 
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataKegiatanPPA as $p)
+                    <tr>
+                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                             <p class="text-gray-900 whitespace-no-wrap">
                                 {{ $p->surah_name }}
                             </p>
@@ -274,42 +334,68 @@
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                             <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                                <span aria-hidden="true" class="absolute inset-0 {{ $p->status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
-                                </span>
-                                <span class="relative">
-                                    {{ $p->status }}
+                                <span class="relative inline-block px-3 py-1 font-semibold ">
+                                    @if ($p->status == 'Pengajuan') 
+                                    <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                                    </span>
+                                    <span class="relative">
+                                        {{ $p->status }}
+                                    </span>
+                                    @elseif($p->status == 'Diterima Koordinator')
+                                    <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                                    </span>
+                                    <span class="relative">
+                                        {{ $p->status }}
+                                    </span>
+                                    @elseif ($p->status == 'Perlu Revisi')
+                                    <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                                    </span>
+                                    <span class="relative">
+                                        {{ $p->status }}
+                                    </span>
+                                    @endif
                                 </span>
                             </span>
                             </td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                <a href="{{ route('koordinator.edit-kegiatan-ppa', $p->id) }}" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                                    </svg>
+                                  </a>
+                            </td>
                         </tr>
-                    @empty
-                        <h1>data kosonggg</h1>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-        @else
-            <div class="border-2 bg-white p-4 mt-8">
-                <h1 class="font-semibold text-2xl">Laporan Kegiatan (Reguler)</h1>
-                <table class="w-full leading-normal mt-6 border-2">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                                Tanggal
-                            </th>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                                Sholat 5 waktu
-                            </th>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                                Membaca Al-Qur'an
-                            </th>
-                            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                            Status 
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@else
+    <div class="border-2 bg-white p-4 mt-8">
+        <h1 class="font-semibold text-2xl mb-6">Laporan Kegiatan (Reguler)</h1>
+        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded bg-white border-2">
+            <table id="kegiatan" class="stripe hover" style="width:100%; padding-top: 3em;  padding-bottom: 3em;">
+                <thead>
+                    <tr>
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                            Tanggal
                         </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @forelse ($dataKegiatan as $k)
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                            Sholat 5 waktu
+                        </th>
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                            Membaca Al-Qur'an
+                        </th>
+                        <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                        Status 
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataKegiatan as $k)
                         <tr>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
@@ -327,84 +413,87 @@
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                            <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                                <span aria-hidden="true" class="absolute inset-0 {{ $k->status == 'Aktif' ? 'bg-green-200' : 'bg-yellow-200'}} rounded-full opacity-50">
-                                </span>
-                                <span class="relative">
-                                    {{ $k->status }}
-                                </span>
+                                <span class="relative inline-block px-3 py-1 font-semibold ">
+                                    @if ($k->status == 'Pengajuan') 
+                                      <span aria-hidden="true" class="absolute inset-0 bg-yellow-600 rounded-full ">
+                                      </span>
+                                      <span class="relative">
+                                          {{ $k->status }}
+                                      </span>
+                                    @elseif($k->status == 'Diterima Koordinator')
+                                      <span aria-hidden="true" class="absolute inset-0 bg-green-600 rounded-full ">
+                                      </span>
+                                      <span class="relative">
+                                          {{ $k->status }}
+                                      </span>
+                                    @elseif ($k->status == 'Perlu Revisi')
+                                      <span aria-hidden="true" class="absolute inset-0 bg-red-600 rounded-full ">
+                                      </span>
+                                      <span class="relative">
+                                          {{ $k->status }}
+                                      </span>
+                                    @endif
+                                  </span>
                             </span>
                             </td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                                <a href="{{ route('koordinator.edit-kegiatan', $k->id) }}" type="button" class="py-2 w-14 px-2 flex justify-center items-center  bg-yellow-500 hover:bg-yellow-700 focus:ring-yellow-500 focus:ring-offset-yellow-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 h-12 rounded-lg ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="10" height="10" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                                    </svg>
+                                  </a>
+                            </td>
                         </tr>
-                    @empty
-                        <h1>data kosonggg</h1>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-{{-- <div class="w-full grid grid-rows-2 grid-flow-col gap-8">
-    <section class="col-span-2 bg-white border-2 shadow-sm p-10 rounded-md grid grid-cols-3">
-        <div class="flex flex-col items-start gap-4">
-            <img src="{{ asset($data->first()->photo) }}" alt="" class="h-32 w-28 rounded-xl border-2 flex">
-        </div>
-        <div class="col-span-2 w-2/3 border-2">
-            <div>
-                <h1 class="text-2xl font-semibold">{{ $data->first()->name }}</h1>
-            </div>
-            <div class="grid grid-cols-2 mt-6">
-                <div class="">
-                    <h1>Status</h1>
-                    <h1 class="font-semibold">{{ $data->first()->status_in_family }}</h1>
-                </div>
-                <div class="">
-                    <h1>Nama Wali</h1>
-                    <h1 class="font-semibold">{{ $data->first()->parent_name }}</h1>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="row-span-2 col-span-2 bg-white border-2 shadow-sm p-10 rounded-md grid grid-cols-2">
-        <div class="">
-            <h1>Jenis Kelamin</h1>
-            <h1 class="font-semibold">{{ $data->first()->gender }}</h1>
-        </div>
-        <div class="">
-            <h1>Tempat, Tanggal Lahir</h1>
-            <h1 class="font-semibold">{{ $data->first()->birth_place }}, {{ $data->first()->birth_date }}</h1>
-        </div>
-        <div class="my-8">
-            <h1>Sekolah</h1>
-            <h1 class="font-semibold">{{ $data->first()->school }}</h1>
-        </div>
-        <div class="my-8    ">
-            <h1>Alamat</h1>
-            <h1 class="font-semibold">{{ $data->first()->address }}, {{ $data->first()->city_address }}</h1>
-        </div>
-        <div class="">
-            <h1>Kelas</h1>
-            <h1 class="font-semibold">{{ $data->first()->class }}</h1>
-        </div>
-        <div class="">
-            <h1>Aktif Sejak</h1>
-            <h1 class="font-semibold">{{ $data->first()->created_at->format('d M Y') }}</h1>
-        </div>
-    </section>
-    <section class="row-span-3 bg-white border-2 shadow-sm p-10 rounded-md">
-        <div class="">
-            <h1>File Raport</h1>
-            <img src="{{ asset($data ? $data->first()->file_raport : 'images/images 1.png' ) }}" alt="" class="h-40 w-2/3 rounded-md">
-        </div>
-        <div class="flex justify-between mb-8">
-            <h1>File Raport</h1>
-            <a href="#" class="font-semibold">Lihat</a>
-        </div>
-        <div class="flex justify-between mb-8">
-            <h1>File Raport</h1>
-            <a href="#" class="font-semibold">Lihat</a>
-        </div>
-    </section>
-</div> --}}
+@endif
+
+
+
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+
+    var table = $('#example').DataTable({
+        responsive: true
+        })
+        .columns.adjust()
+        .responsive.recalc();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+    var table = $('#akademik').DataTable({
+        responsive: true
+        })
+        .columns.adjust()
+        .responsive.recalc();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+    var table = $('#kegiatan-ppa').DataTable({
+        responsive: true
+        })
+        .columns.adjust()
+        .responsive.recalc();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+    var table = $('#kegiatan').DataTable({
+        responsive: true
+        })
+        .columns.adjust()
+        .responsive.recalc();
+    });
+</script>
 @endsection

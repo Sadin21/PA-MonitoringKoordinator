@@ -3,12 +3,12 @@
 @section('title', 'Login | Dashboard')
 @section('content')
     <div class="h-screen flex flex-col items-center justify-center text-center">
-        <div class="w-1/3">
-            <h1 class="text-3xl font-bold text-[#013E1F]">Selamat Datang</h1>
-            <p class="mt-3">Aplikasi Monitoring Donasi Untuk Pengurus dan Koordinator <br> di Yayasan Peduli Yatim PENS.</p>
-            <div class="bg-white px-12 py-12 rounded-xl mt-10 text-start">
-                <h1 class="text-2xl font-bold text-[#013E1F]">login</h1>
-                <p class="mt-2 mb-4">Masukkan email terdaftar</p>
+        <div class=" w-4/5 md:w-1/3">
+            <h1 class="hidden md:block text-3xl font-bold text-[#013E1F]">Selamat Datang</h1>
+            <p class="hidden md:block mt-3">Aplikasi Monitoring Donasi Untuk Pengurus dan Koordinator <br> di Yayasan Peduli Yatim PENS.</p>
+            <div class="bg-white p-6 md:p-12 rounded-xl mt-10 text-start">
+                <h1 class="text-2xl font-bold text-[#013E1F] text-center md:text-left mb-10 md:mb-0">login</h1>
+                <p class="mt-2 mb-4 hidden md:block">Masukkan email terdaftar</p>
                 <form action="{{ route('authenticate') }}" method="POST">
                     @csrf
                     <div class="mb-4 relative ">

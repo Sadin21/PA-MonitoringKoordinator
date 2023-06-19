@@ -36,7 +36,9 @@
 <div class="grid grid-cols-5 gap-8">
   <div>
     <div class="border-2 bg-white p-4">
+        {{-- <img src="{{ asset($data->first()->photo) }}" alt="" class="w-full h-52"> --}}
         <img src="{{ asset($data->first()->photo) }}" alt="" class="w-full h-52">
+
         <div class="text-center mt-4">
           @if ($data->first()->regis_status != 'Diterima')
             <h1>Status Pengajuan</h1>

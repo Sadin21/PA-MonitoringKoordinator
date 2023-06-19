@@ -6,6 +6,7 @@ use App\Models\Children;
 use App\Models\children_parent;
 use App\Models\Koordinator;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -141,13 +142,15 @@ class ChildrenController extends Controller
         
         if ($request->hasFile('file_ktp')) {
             $file_ktp = $request->file('file_ktp');
-            $filename = 'images/berkas_parent/' . $file_ktp->getClientOriginalName();
+            $filename = 'images/parent/' . $file_ktp->getClientOriginalName();
             $file_ktp->move(public_path('images'), $filename);
+            
             Storage::delete(public_path('images'), $filename);
-
+            
             $file_kk = $request->file('file_kk');
-            $filename2 = 'images/berkas_parent/' . $file_kk->getClientOriginalName();
+            $filename2 = 'images/parent/' . $file_kk->getClientOriginalName();
             $file_kk->move(public_path('images'), $filename2);
+            $file_kk->storeAs('public/images/parent' . $file_kk->getClientOriginalName());
 
             $data->update([
                 'name' => $request->name,

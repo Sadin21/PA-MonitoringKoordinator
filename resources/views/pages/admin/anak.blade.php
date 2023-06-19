@@ -18,26 +18,26 @@
         <div>
             <div class="py-4 px-8 bg-white border-2 shadow-sm rounded-md">
             <div class="flex flex-row items-center gap-4">
-                <img src="{{ url("$d->photo") }}" class="rounded-full w-20 h-20"/>
+                {{-- <img src="{{ url("$d->photo") }}" class="rounded-full w-20 h-20"/> --}}
                 <div class="flex flex-col justify-center w-full h-28">
                     <div>
                         <p class="text-xl font-semibold text-gray-800">
-                            {{ $d->name  }}
+                            {{ $d['name']  }}
                         </p>
                         <p class="text-xs text-gray-800">
-                            {{ $d->status_in_family  }}
+                            {{ $d['status_in_family']  }}
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-between gap-4 mt-6">
+            {{-- <div class="flex items-center justify-between gap-4 mt-6">
                 <a href="{{ route('admin.detail-anak', $d->id) }}" type="button" class="w-1/2 px-4 py-2 text-base bg-white border text-center rounded-lg text-grey-500 hover:bg-[#EC994B]">
                     Detail
                 </a>
                 <button type="button" class="w-1/2 px-4 py-2 text-base text-white bg-[#006934] border rounded-lg ">
                     Chat
                 </button>
-            </div>
+            </div> --}}
             </div>
         </div>
         @empty
