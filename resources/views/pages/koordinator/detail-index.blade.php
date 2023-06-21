@@ -143,6 +143,54 @@
         </div>
     </div>
 </div>
+<div class="w-full bg-white border-2 shadow-sm p-4 rounded-md mt-8">
+    <h1 class="font-semibold text-2xl mb-6">Rekap Donasi</h1>
+    <table class="min-w-full leading-normal border-2">
+        <thead>
+            <tr>
+                <th scope="col" class="px-5 py-3 text-sm font-bold text-left text-gray-800 bg-white border-b border-gray-200">
+                    Jenjang Pendidikan
+                </th>
+                <th scope="col" class="px-5 py-3 text-sm font-bold text-left text-gray-800 bg-white border-b border-gray-200">
+                  Kelas
+                </th>
+                <th scope="col" class="px-5 py-3 text-sm font-bold text-left text-gray-800 bg-white border-b border-gray-200">
+                    Nominal
+                </th>
+                <th scope="col" class="px-5 py-3 text-sm font-bold text-left text-gray-800 bg-white border-b border-gray-200">
+                    Berlaku Mulai
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          @forelse ($data as $d)
+            <tr>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->grade }}
+                </p>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->class }}
+                </p>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->donation_amount }}
+                </p>
+              </td>
+                <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    {{ $d->created_at ? $d->created_at->format('d M Y') : "kosong" }}
+                  </p>
+                </td>
+          @empty
+              <h1>data kosonggg</h1>
+          @endforelse
+        </tbody>
+    </table>
+</div>
 <div class="border-2 bg-white p-4 mt-8">
     <h1 class="font-semibold text-2xl mb-6">Laporan Beasiswa</h1>
     <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded bg-white border-2">

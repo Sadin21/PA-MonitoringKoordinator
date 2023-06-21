@@ -12,6 +12,9 @@
       <a  href="{{ route('koordinator.riwayat-pengajuan-akun') }}" type="button" class="py-2 w-40 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
         Riwayat Akun
       </a>
+      <a  href="{{ route('koordinator.data-wali') }}" type="button" class="py-2 w-40 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg mt-10">
+        Data Wali
+      </a>
     </div>
 </section>
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">

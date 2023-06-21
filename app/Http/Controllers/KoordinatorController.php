@@ -10,6 +10,7 @@ use App\Models\Koordinator;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Children;
+use App\Models\children_parent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -195,14 +196,16 @@ class KoordinatorController extends Controller
     {
         $this->validate($request, [
             'regis_status' => 'required',
-            'note_status' => 'nullable'
+            'note_status' => 'nullable',
+            'donation_amount' => 'required'
         ]);
 
         $data = Children::findOrFail($id);
 
         $data->update([
             'regis_status' => $request->regis_status,
-            'note_status' => $request->note_status
+            'note_status' => $request->note_status,
+            'donation_amount' => $request->donation_amount
         ]);
 
         if ($data) {
@@ -223,6 +226,179 @@ class KoordinatorController extends Controller
         return view('pages.koordinator.riwayat-akun', [
             'data' => $data
         ]);
+    }
+
+    public function dataParent()
+    {
+        $data = children_parent::get();
+        $children_sum = [];
+        foreach ($data as $d) {
+            $children = Children::where('children.parent_id', $d->id)->count();
+            $children_sum[$d->id] = $children;
+        }
+        
+        return view('pages.koordinator.show-parent', [
+            'data' => $data,
+            'children_sum' => $children_sum
+        ]);
+    }
+
+    public function detailParent($id)
+    {
+        $data = children_parent::find($id);
+
+        return view('pages.koordinator.detail-parent', [
+            'data' => $data
+        ]);
+    }
+
+    public function createParent()
+    {
+        return view('pages.koordinator.create-parent');
+    }
+
+    public function storeParent(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'birth_place' => 'required',
+            'birth_date' => 'required',
+            'marital' => 'required',
+            'tertiary_education' => 'required',
+            'job' => 'required',
+            'salary' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'home_status' => 'required',
+            'number_of_souls' => 'required',
+            'category_of_souls' => 'required',
+            'nik' => 'required',
+            'file_ktp' => 'required|image|max:2048|mimes:jpg,jpeg,png',
+            'file_kk' => 'required|image|max:2048|mimes:jpg,jpeg,png'
+        ]);
+
+        $file_ktp = $request->file('file_ktp');
+        $filename = 'images/berkas_parent/' . $file_ktp->getClientOriginalName();
+        $file_ktp->move(public_path('images/berkas_parent/'), $filename);
+
+        $file_kk = $request->file('file_kk');
+        $filename2 = 'images/berkas_parent/' . $file_kk->getClientOriginalName();
+        $file_kk->move(public_path('images/berkas_parent/'), $filename2);
+        
+        $data = children_parent::create([
+            'name' => $request->name,
+            'birth_place' => $request->birth_place,
+            'birth_date' => $request->birth_date,
+            'marital' => $request->marital,
+            'tertiary_education' => $request->tertiary_education,
+            'job' => $request->job,
+            'salary' => $request->salary,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'home_status' => $request->home_status,
+            'number_of_souls' => $request->number_of_souls,
+            'category_of_souls' => $request->category_of_souls,
+            'nik' => $request->nik,
+            'file_ktp' => $filename,
+            'file_kk' => $filename2
+        ]);
+
+        // dd($data);
+        if ($data) {
+            // dd('berhasil');
+            Alert::success('Data Berhasil Disimpan');
+            return redirect()->route('koordinator.data-wali');
+        } else {
+            return redirect()->route('koordinator.create-data-wali');
+        }
+    }
+
+    public function editParent($id)
+    {
+        $data = children_parent::findOrFail($id);
+
+        return view('pages.koordinator.update-parent', [
+            'data' => $data
+        ]);
+    }
+
+    public function updateParent(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'birth_place' => 'required',
+            'birth_date' => 'required',
+            'marital' => 'required',
+            'tertiary_education' => 'required',
+            'job' => 'required',
+            'salary' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'home_status' => 'required',
+            'number_of_souls' => 'required',
+            'category_of_souls' => 'required',
+            'nik' => 'required',
+            'file_ktp' => 'image|max:2048|mimes:jpg,jpeg,png',
+            'file_kk' => 'image|max:2048|mimes:jpg,jpeg,png'
+        ]);
+
+        $data = children_parent::find($id);
+
+        if ($request->hasFile('file_ktp')) {
+            $file_ktp = $request->file('file_ktp');
+            $filename = 'images/berkas_parent/' . $file_ktp->getClientOriginalName();
+            $file_ktp->move(public_path('images/berkas_parent/'), $filename);
+            if ($data->file_ktp) {
+                Storage::delete('public/' . $data->file_ktp);
+            }
+            $data->file_ktp = $filename;
+        }
+
+        if ($request->hasFile('file_kk')) {
+            $file_kk = $request->file('file_kk');
+            $filename2 = 'images/berkas_parent/' . $file_kk->getClientOriginalName();
+            $file_kk->move(public_path('images/berkas_parent/'), $filename2);
+            if ($data->file_kk) {
+                Storage::delete('public/' . $data->file_kk);
+            }
+            $data->file_kk = $filename2;
+        }
+        
+        $data->name = $request->name;
+        $data->birth_place = $request->birth_place;
+        $data->birth_date = $request->birth_date;
+        $data->marital = $request->marital;
+        $data->tertiary_education = $request->tertiary_education;
+        $data->job = $request->job;
+        $data->salary = $request->salary;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->home_status = $request->home_status;
+        $data->number_of_souls = $request->number_of_souls;
+        $data->category_of_souls = $request->category_of_souls;
+        $data->nik = $request->nik;
+        $data->save();
+
+        // dd($data);
+        if ($data) {
+            Alert::success('Data Berhasil Diubah');
+            return redirect()->route('koordinator.data-wali');
+        } else {
+            return redirect()->route('koordinator.edit-data-wali');
+        }
+    }
+
+    public function destroyParent($id)
+    {
+        $data = children_parent::findOrFail($id);
+        $data->delete();
+
+        if ($data) {
+            Alert::success('Data Berhasil Dihapus');
+            return redirect()->route('koordinator.data-wali');
+        } else {
+            return redirect()->route('koordinator.data-wali');
+        }
     }
 
     public function beasiswa()

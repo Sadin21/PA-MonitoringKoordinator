@@ -182,6 +182,24 @@
                 @else
                     <div class="grid grid-cols-2 gap-4">
                         <div>
+                            <h1 class="pb-4">Jenjang Pendidikan</h1>
+                            <div class=" relative pb-4">
+                                <input type="text" id="contact-form-name" class=" rounded-lg border-2 flex-1 appearance-none border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent" value="{{ $data->first()->grade }}"/>
+                            </div>                       
+                        </div>
+                        <div>
+                            <h1 class="pb-4">Total Donasi</h1>
+                            <div class=" relative pb-4">
+                                <select
+                                class="rounded-lg border-1 flex-1 appearance-none border border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="donation_amount">
+                                    <option value="75.000" {{ $data->first()->donation_amount == '75.000' ? 'selected' : '' }}>75.000</option>
+                                    <option value="100.000" {{ $data->first()->donation_amount == '100.000' ? 'selected' : '' }}>100.000</option>
+                                    <option value="150.000" {{ $data->first()->donation_amount == '150.000' ? 'selected' : '' }}>150.000</option>
+                                    <option value="200.000" {{ $data->first()->donation_amount == '200.000' ? 'selected' : '' }}>200.000</option>
+                                </select>
+                            </div>       
+                        </div>
+                        <div>
                             <h1 class="pb-4">Keterangan</h1>
                             <div class="relative pb-4">
                                 <textarea id="user-info-email" name="note_status" class="rounded-lg border-1 flex-1 appearance-none w-full border border-gray-300 py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="note_status" rows="4">{{ $data->first()->note_status }}</textarea>
@@ -189,14 +207,12 @@
                         </div>
                         <div>
                             <h1 class="pb-4">Status</h1>
-                            <div class=" relative pb-4"> 
                                 <select
                                 class="rounded-lg border-1 flex-1 appearance-none border border-gray-300 w-full py-3 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="regis_status">
                                     <option value="Pengajuan" {{ $data->first()->regis_status == 'Pengajuan' ? 'selected' : '' }}>Pengajuan</option>
                                     <option value="Diterima Koordinator" {{ $data->first()->regis_status == 'Diterima Koordinator' ? 'selected' : '' }}>Diterima Koordinator</option>
                                     <option value="Perlu Revisi" {{ $data->first()->regis_status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
                                 </select>
-                            </div>
                             <div class="">
                                 <button type="submit" class="py-2 w-24 mt-4 bg-[#006934] text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
                                     Submit
@@ -205,7 +221,7 @@
                         </div>
                     </div>
                 @endif
-                </form>
+            </form>
         </div>
 </section>
 {{-- <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">

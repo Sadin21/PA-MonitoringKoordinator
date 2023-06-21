@@ -34,6 +34,7 @@ class Children extends Model
         'user_id',
         'coordinator_id',
         'parent_id',
+        'donation_amount',
     ];
 
     public function user()

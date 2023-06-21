@@ -7,28 +7,26 @@
   <p>Perbarui akun pegajuan</p>
 </section>
 <section class="w-full bg-white border-2 shadow-sm p-10 rounded-md mt-10">
-    <table class="min-w-full leading-normal">
+  <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded bg-white border-2">
+    <table id="example" class="stripe hover" style="width:100%; padding-top: 3em;  padding-bottom: 3em;">
         <thead>
-            <tr>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Username
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                  Email
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Password
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
-                    Tanggal Pembuatan
-                </th>
-                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200 w-20">
-                    Aksi
-              </th>
-            </tr>
+          <tr>
+            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                Username
+            </th>
+            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+              Email
+            </th>
+            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200">
+                Tanggal Pembuatan
+            </th>
+            <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 bg-white border-b border-gray-200 w-20">
+                Aksi
+          </th>
+        </tr>
         </thead>
         <tbody>
-          @forelse ($data as $d)
+            @foreach ($data as $d)
             <tr>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-no-wrap">
@@ -38,11 +36,6 @@
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-no-wrap">
                     {{ $d->email }}
-                </p>
-              </td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                <p class="text-gray-900 whitespace-no-wrap">
-                    {{ $d->password }}
                 </p>
               </td>
                 <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
@@ -67,10 +60,22 @@
                   </form>
               </td>
             </tr>
-          @empty
-              <h1>data kosonggg</h1>
-          @endforelse
+            @endforeach
         </tbody>
     </table>
+</div>
 </section>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+
+    var table = $('#example').DataTable({
+        responsive: true
+        })
+        .columns.adjust()
+        .responsive.recalc();
+    });
+</script>
 @endsection

@@ -243,6 +243,7 @@ class ChildrenController extends Controller
             'status_with_parents' => 'required',
             'coordinator_id' => 'required|exists:koordinators,id',
             'parent_id' => 'required|exists:children_parents,id',
+            'donation_amount' => 'nullable|numeric',
         ]);
         // dd($request->file('file_raport'));
 
@@ -344,6 +345,7 @@ class ChildrenController extends Controller
             'status_with_parents' => 'required',
             'coordinator_id' => 'required|exists:koordinators,id',
             'parent_id' => 'required|exists:children_parents,id',
+            'donation_amount' => 'nullable|numeric',
         ]);
 
         $children = Children::findOrFail($id);

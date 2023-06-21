@@ -69,6 +69,16 @@ Route::group(['middleware' => ['auth', 'koor']], function () {
     Route::put('/dashboard/koordinator/edit-pengajuan/{id}', [KoordinatorController::class, 'updatePengajuan'])->name('koordinator.update-pengajuan');
     Route::get('/dashboard/koordinator/riwayat-pengajuan-akun', [KoordinatorController::class, 'riwayatPengajuanAkun'])->name('koordinator.riwayat-pengajuan-akun');
 
+    // data wali
+    Route::get('/dashboard/koordinator/data-wali', [KoordinatorController::class, 'dataParent'])->name('koordinator.data-wali');
+    Route::get('/dashboard/koordinatot/data-wali/{id}', [KoordinatorController::class, 'detailParent'])->name('koordinator.detail-data-wali');
+    Route::get('/dashboard/koordinator/create-data-wali', [KoordinatorController::class, 'createParent'])->name('koordinator.create-data-wali');
+    Route::post('/dashboard/koordinator/create-data-wali', [KoordinatorController::class, 'storeParent'])->name('koordinator.store-data-wali');
+    Route::get('/dashboard/koordinator/edit-data-wali/{id}', [KoordinatorController::class, 'editParent'])->name('koordinator.edit-data-wali');
+    Route::put('/dashboard/koordinator/edit-data-wali/{id}', [KoordinatorController::class, 'updateParent'])->name('koordinator.update-data-wali');
+    Route::delete('/dashboard/koordinator/delete-data-wali/{id}', [KoordinatorController::class, 'destroyParent'])->name('koordinator.destroy-data-wali');
+
+
     // beasiswa
     Route::get('/dashboard/koordinator/beasiswa', [KoordinatorController::class, 'beasiswa'])->name('koordinator.beasiswa');
     Route::get('/dashboard/koordinator/update-beasiswa/{id}', [KoordinatorController::class, 'editBeasiswa'])->name('koordinator.edit-beasiswa');

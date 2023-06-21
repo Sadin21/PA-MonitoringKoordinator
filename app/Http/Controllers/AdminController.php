@@ -47,12 +47,12 @@ class AdminController extends Controller
 
     public function anak()
     {
-        // $dataChildren = Children::where('regis_status', '=', 'Diterima')->get();
+        $dataChildren = Children::where('regis_status', '=', 'Diterima')->get();
 
-        $response = Http::get('http://localhost:8000/api/children')['data'];
+        // $response = Http::get('http://localhost:8000/api/children')['data'];
 
         return view('pages.admin.anak', [
-            'dataChildren' => $response
+            'dataChildren' => $dataChildren
         ]);
         
     }
@@ -146,16 +146,17 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'regis_status' => 'required',
-            'note_status' => 'nullable'
+            'note_status' => 'nullable',
+            'donation_amount' => 'required'
         ]);
 
         $data = Children::findOrFail($id);
 
         $data->update([
             'regis_status' => $request->regis_status,
-            'note_status' => $request->note_status
+            'note_status' => $request->note_status,
+            'donation_amount' => $request->donation_amount
         ]);
-
         // dd($data);
         if ($data) {
             // dd('berhasil');
